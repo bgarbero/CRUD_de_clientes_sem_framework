@@ -13,25 +13,21 @@
 
 .caixa-login{
     height: 100vh;
-    width: 50vw;
+    width: 40vw;
     border: 1px solid #2d3250;
     background-color: #2d3250;
     color: #ddd;
     padding-top:200px;
-    padding-left: 150px;
+    padding-left: 100px;
 }
 
 #esqueci-minha-senha{
     text-decoration: underline;
     color: #ddd;
-    display: inline-block; /*aqui deveria colocar o link ao lado do lembrar-me, mas não está indo*/
 }
 
 #btn-entrar{
     background-color: #fdb17a;
-    font-size: large;
-    font-weight: 500;
-    border: none;
 }
 
 #btn-entrar:hover{
@@ -50,8 +46,40 @@
 #senha, #email, #btn-entrar {
     height: 50px;
     width: 530px;
+    font-size: large;
+    font-weight: 500;
+    border: none;
+}
+
+#email, #senha{
+    padding-left: 10px;
 }
 
 #checkbox:hover{
     cursor: pointer;
+}
+
+.grupo{
+    padding-bottom: 20px;
+}
+
+.uteis{
+    display: flex;
+    padding-bottom: 20px;
+}
+
+#esqueci-minha-senha{
+    padding-left: 263px;
+}
+
+label{
+    padding-left: 5px;
+}
+
+image{
+    width: 50%;
+}
+
+.container{
+    display: flex;
 }
