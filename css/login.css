@@ -11,39 +11,41 @@
 
 */
 
-.caixa-login{
+.caixa-login {
     height: 100vh;
     width: 40vw;
     border: 1px solid #2d3250;
     background-color: #2d3250;
     color: #ddd;
-    padding-top:200px;
+    padding-top: 200px;
     padding-left: 100px;
 }
 
-#esqueci-minha-senha{
+#esqueci-minha-senha {
     text-decoration: underline;
     color: #ddd;
 }
 
-#btn-entrar{
+#btn-entrar {
     background-color: #fdb17a;
 }
 
-#btn-entrar:hover{
+#btn-entrar:hover {
     cursor: pointer;
     background-color: #fdc094;
 }
 
-.titulo-login{
+.titulo-login {
     font-size: xx-large;
 }
 
-.descricao{
+.descricao {
     margin-bottom: 100px;
 }
 
-#senha, #email, #btn-entrar {
+#senha,
+#email,
+#btn-entrar {
     height: 50px;
     width: 530px;
     font-size: large;
@@ -51,35 +53,38 @@
     border: none;
 }
 
-#email, #senha{
+#email,
+#senha {
     padding-left: 10px;
 }
 
-#checkbox:hover{
+#checkbox:hover {
     cursor: pointer;
 }
 
-.grupo{
+.grupo {
     padding-bottom: 20px;
 }
 
-.uteis{
+.uteis {
     display: flex;
     padding-bottom: 20px;
 }
 
-#esqueci-minha-senha{
+#esqueci-minha-senha {
     padding-left: 263px;
 }
 
-label{
+label {
     padding-left: 5px;
 }
 
-image{
-    width: 50%;
+.container {
+    display: flex;
 }
 
-.container{
-    display: flex;
+image {
+max-width: 200px;
+max-height: 200px;
+display: flexbox;
 }
