@@ -83,7 +83,7 @@ label {
     display: flex;
 }
 
-image {
+/*image {
 max-width: 200px;
 max-height: 200px;
 display: flexbox;
