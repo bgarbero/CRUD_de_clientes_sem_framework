@@ -7,3 +7,12 @@
     box-sizing: border-box;
     font-family: 'Raleway', sans-serif;    
 }
+
+button {
+    background-color: #fdb17a;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #fdc094;
+}

@@ -5,6 +5,7 @@ let btnEntrar = document.getElementById('btn-entrar');
 
 //captura do evento clicar botão
 btnEntrar.addEventListener('click', () => {
+
     //pegar o email digitado
     let userEmail = email.value;
 
@@ -55,3 +56,5 @@ function salvarToken(token) {
 function salvarUsuario(usuario) {
     localStorage.setItem('usuario', JSON.stringify(usuario))
 }
+
+//como acionar o botão com enter?
