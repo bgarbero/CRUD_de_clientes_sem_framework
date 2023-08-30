@@ -33,6 +33,7 @@
 #btn-entrar:hover {
     cursor: pointer;
     background-color: #fdc094;
+    color: #696969;
 }
 
 .titulo-login {
@@ -51,6 +52,7 @@
     font-size: large;
     font-weight: 500;
     border: none;
+    color: #363636;
 }
 
 #email,
