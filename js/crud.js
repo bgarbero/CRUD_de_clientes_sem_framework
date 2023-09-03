@@ -2,7 +2,10 @@ const URL = 'http://localhost:3400/clientes';
 let modoEdicao = false;
 
 let btnAdicionar = document.getElementById('btn-adicionar');
-let tabelaCliente = document.querySelector('table>tbody');//observar essa variável
+let btnSalvar = document.getElementById('btn-salvar');
+let btnCancelar = document.getElementById('btn-cancelar');
+
+let tabelaCliente = document.querySelector('table>tbody');
 let modalCliente = new bootstrap.Modal(document.getElementById('modal-cliente'), {});
 let tituloModal = document.querySelector('h4.modal-title');
 
@@ -13,7 +16,14 @@ btnAdicionar.addEventListener('click', () => {
     modalCliente.show();
 });
 
-//função para obter os clientes da API
+btnSalvar.addEventListener('click', () =>{
+
+});
+
+btnCancelar.addEventListener('click', () =>{
+    modalCliente.hide();
+});
+
 function obterClientes() {
     fetch(URL, {
         method: 'GET'
@@ -25,7 +35,6 @@ function obterClientes() {
         .catch()
 };
 
-//função para editar clientes
 function editarCliente(id) {
     modoEdicao = true;
     tituloModal.textContent = 'Editar Cliente';
