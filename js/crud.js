@@ -38,9 +38,15 @@ btnSalvar.addEventListener('click', () => {
         return;
     }
 
-    //enviar o cadastro para o back end
-    adicionarClienteBackEnd(cliente);
+    // if(modoEdicao == true){
+    //     atualizarClienteBackEnd(cliente);
+    // }else{
+    //     adicionarClienteBackEnd(cliente);
+    // }
 
+    (modoEdicao) ? atualizarClienteBackEnd(cliente) : adicionarClienteBackEnd(cliente);
+    //enviar o cadastro para o back end
+    //adicionarClienteBackEnd(cliente); 
     //atualizar a tabela com o novo cliente
 
 });
@@ -56,7 +62,9 @@ function obterClienteDoModal() {
         nome: formModal.nome.value,
         telefone: formModal.telefone.value,
         cpfOuCnpj: formModal.cpf.value,
-        //dataCadastro: formModal.dataCadastro.value,
+        dataCadastro: (formModal.dataCadastro.value) 
+                        ? new Date (formModal.dataCadastro.value).toISOString()
+                        :new Date().toISOString()
     })
 }
 
@@ -127,7 +135,7 @@ function criarLinhaNaTabela(cliente) {
     tdCPF.textContent = cliente.cpfOuCnpj;
     tdEmail.textContent = cliente.email;
     tdTelefone.textContent = cliente.telefone;
-    tdDataCadastro.textContent = cliente.dataCadastro;
+    tdDataCadastro.textContent = new Date (cliente.dataCadastro).toLocaleDateString();
 
     tdAcoes.innerHTML = `<button id="btn-editar" onclick="editarCliente(${cliente.id})" class="btn btn-outline-primary btn-sm mr-3">
                             Editar
@@ -177,6 +185,32 @@ function adicionarClienteBackEnd(cliente) {
         .catch(error => {
             console.log(error)
         })
+}
+
+function atualizarClienteBackEnd(cliente) {
+
+    fetch(`${URL}/${cliente.id}`, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'token'
+        },
+        body: JSON.stringify(cliente)
+    })
+        .then(response => response.json())
+        .then(()=> {
+            atualizarClienteNaLista(cliente);
+            modalCliente.hide();
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+function atualizarClienteNaLista(cliente){
+    let indice = listaClientes.findIndex((c) => c.id == cliente.id);
+    listaClientes.splice(indice, 1, cliente);
+    popularTabela(listaClientes);
 }
 
 obterClientes();
