@@ -1,6 +1,8 @@
 const URL = 'http://localhost:3400/clientes';
 let modoEdicao = false;
 
+let listaClientes = [];
+
 let btnAdicionar = document.getElementById('btn-adicionar');
 let btnSalvar = document.getElementById('btn-salvar');
 let btnCancelar = document.getElementById('btn-cancelar');
@@ -9,28 +11,63 @@ let tabelaCliente = document.querySelector('table>tbody');
 let modalCliente = new bootstrap.Modal(document.getElementById('modal-cliente'), {});
 let tituloModal = document.querySelector('h4.modal-title');
 
+let formModal = {
+    id: document.getElementById('id'),
+    nome: document.getElementById('nome'),
+    email: document.getElementById('email'),
+    telefone: document.getElementById('telefone'),
+    cpf: document.getElementById('cpf'),
+    dataCadastro: document.getElementById('dataCadastro'),
+}
+
 //botão adicionar funcionando
 btnAdicionar.addEventListener('click', () => {
     modoEdicao = false;
     tituloModal.textContent = 'Adicionar Cliente';
+    limparModalCliente();
     modalCliente.show();
 });
 
-btnSalvar.addEventListener('click', () =>{
+btnSalvar.addEventListener('click', () => {
+    //capturar os dados do modal
+    let cliente = obterClienteDoModal();
+
+    //se os campos obrigatórios foram preenchidos
+    if (!cliente.nome || !cliente.telefone) {
+        alert('Nome e telefone são obrigatórios!');
+        return;
+    }
+
+    //enviar o cadastro para o back end
+    adicionarClienteBackEnd(cliente);
+
+    //atualizar a tabela com o novo cliente
 
 });
 
-btnCancelar.addEventListener('click', () =>{
+btnCancelar.addEventListener('click', () => {
     modalCliente.hide();
 });
+
+function obterClienteDoModal() {
+    return new Cliente({
+        id: formModal.id.value,
+        email: formModal.email.value,
+        nome: formModal.nome.value,
+        telefone: formModal.telefone.value,
+        cpfOuCnpj: formModal.cpf.value,
+        //dataCadastro: formModal.dataCadastro.value,
+    })
+}
 
 function obterClientes() {
     fetch(URL, {
         method: 'GET'
     })
         .then(response => response.json())
-        .then(response => {
-            popularTabela(response)
+        .then(clientes => {
+            listaClientes = clientes;
+            popularTabela(clientes)
         })
         .catch()
 };
@@ -38,8 +75,33 @@ function obterClientes() {
 function editarCliente(id) {
     modoEdicao = true;
     tituloModal.textContent = 'Editar Cliente';
+
+    let cliente = listaClientes.find(cliente => cliente.id == id);
+
+    atualizarModalCliente(cliente);
+
     modalCliente.show();
-    alert('Aqui vou editar o cliente ' + id);
+
+}
+
+function atualizarModalCliente(cliente) {
+
+    formModal.id.value = cliente.id;
+    formModal.nome.value = cliente.nome;
+    formModal.telefone.value = cliente.telefone;
+    formModal.email.value = cliente.email;
+    formModal.cpf.value = cliente.cpfOuCnpj;
+    formModal.dataCadastro.value = cliente.dataCadastro.substring(0, 10);
+}
+
+function limparModalCliente() {
+
+    formModal.id.value = "";
+    formModal.nome.value = "";
+    formModal.telefone.value = "";
+    formModal.email.value = "";
+    formModal.cpf.value = "";
+    formModal.dataCadastro.value = "";
 }
 
 function excluirCliente(id) {
@@ -87,11 +149,34 @@ function criarLinhaNaTabela(cliente) {
     tabelaCliente.appendChild(tr);
 }
 
-function popularTabela(clientes){
-    console.log(clientes)
-    clientes.forEach(cliente =>  {
+function popularTabela(clientes) {
+    tabelaCliente.textContent = "";
+    clientes.forEach(cliente => {
         criarLinhaNaTabela(cliente)
     });
+}
+
+function adicionarClienteBackEnd(cliente) {
+    cliente.dataCadastro = new Date().toISOString();
+
+    fetch(URL, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'token'
+        },
+        body: JSON.stringify(cliente)
+    })
+        .then(response => response.json())
+        .then(response => {
+            let novoCliente = new Cliente(response);
+            listaClientes.push(novoCliente);
+            popularTabela(listaClientes);
+            modalCliente.hide();
+        })
+        .catch(error => {
+            console.log(error)
+        })
 }
 
 obterClientes();
