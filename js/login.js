@@ -15,7 +15,12 @@ btnEntrar.addEventListener('click', () => {
     //validar se o email e senha estão corretos
     if (!userEmail || !userSenha) {
         //caso esteja incorreto, mandar mensagem de usuário e senha inválida
-        alert('O campo de e-mail e senha são obrigatórios');
+        Swal.fire({
+            icon: 'error',
+            //title: 'Oops...',
+            text: 'O campo de e-mail e senha são obrigatórios',
+          })
+        //alert('O campo de e-mail e senha são obrigatórios');
         return;
     }
 
@@ -44,17 +49,20 @@ function autenticar(email, senha) {
                 salvarToken(response.token);
                 salvarUsuario(response.usuario);
 
-                window.open('crud.html', '_self');
+                //aqui vou esconder a tela de login e carregar o loading
+                mostrarLoading();
+                setTimeout(() => {
+                    window.open('crud.html', '_self');
+                }, 3000)
             }
         })
 }
-
-function salvarToken(token) {
-    localStorage.setItem('token', token)
-}
-
-function salvarUsuario(usuario) {
-    localStorage.setItem('usuario', JSON.stringify(usuario))
-}
-
 //como acionar o botão com enter?
+
+function mostrarLoading(){
+    const divLoading = document.querySelector('#loading');
+    divLoading.style.display = 'block';
+
+    const divBoxLogin = document.querySelector("div.caixa-login")
+    divBoxLogin.style.display = 'none';
+}

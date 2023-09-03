@@ -70,7 +70,10 @@ function obterClienteDoModal() {
 
 function obterClientes() {
     fetch(URL, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            'Authorization': obterToken()
+        }
     })
         .then(response => response.json())
         .then(clientes => {
@@ -175,7 +178,7 @@ function adicionarClienteBackEnd(cliente) {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'token'
+            'Authorization': obterToken()
         },
         body: JSON.stringify(cliente)
     })
@@ -197,7 +200,7 @@ function atualizarClienteBackEnd(cliente) {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'token'
+            'Authorization': obterToken()
         },
         body: JSON.stringify(cliente)
     })
@@ -227,7 +230,7 @@ function excluirClienteBackEnd(cliente) {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'token'
+            'Authorization': obterToken()
         },
     })
         .then(response => response.json())

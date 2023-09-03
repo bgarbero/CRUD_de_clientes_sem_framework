@@ -16,3 +16,7 @@ button:hover {
     cursor: pointer;
     background-color: #fdc094;
 }
+
+#loading {
+    display: none;
+}
