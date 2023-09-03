@@ -62,9 +62,9 @@ function obterClienteDoModal() {
         nome: formModal.nome.value,
         telefone: formModal.telefone.value,
         cpfOuCnpj: formModal.cpf.value,
-        dataCadastro: (formModal.dataCadastro.value) 
-                        ? new Date (formModal.dataCadastro.value).toISOString()
-                        :new Date().toISOString()
+        dataCadastro: (formModal.dataCadastro.value)
+            ? new Date(formModal.dataCadastro.value).toISOString()
+            : new Date().toISOString()
     })
 }
 
@@ -113,8 +113,12 @@ function limparModalCliente() {
 }
 
 function excluirCliente(id) {
-    alert('Aqui vou exclir o cliente ' + id);
-    modalCliente.show();
+    let cliente = listaClientes.find(c => c.id == id);
+
+    if (confirm(`Deseja realmente excluir o cliente ${cliente.nome}?`)){
+        excluirClienteBackEnd(cliente);
+    }
+
 }
 
 function criarLinhaNaTabela(cliente) {
@@ -135,7 +139,7 @@ function criarLinhaNaTabela(cliente) {
     tdCPF.textContent = cliente.cpfOuCnpj;
     tdEmail.textContent = cliente.email;
     tdTelefone.textContent = cliente.telefone;
-    tdDataCadastro.textContent = new Date (cliente.dataCadastro).toLocaleDateString();
+    tdDataCadastro.textContent = new Date(cliente.dataCadastro).toLocaleDateString();
 
     tdAcoes.innerHTML = `<button id="btn-editar" onclick="editarCliente(${cliente.id})" class="btn btn-outline-primary btn-sm mr-3">
                             Editar
@@ -198,8 +202,8 @@ function atualizarClienteBackEnd(cliente) {
         body: JSON.stringify(cliente)
     })
         .then(response => response.json())
-        .then(()=> {
-            atualizarClienteNaLista(cliente);
+        .then(() => {
+            atualizarClienteNaLista(cliente, false);
             modalCliente.hide();
         })
         .catch(error => {
@@ -207,10 +211,33 @@ function atualizarClienteBackEnd(cliente) {
         })
 }
 
-function atualizarClienteNaLista(cliente){
+function atualizarClienteNaLista(cliente, removerCliente) {
     let indice = listaClientes.findIndex((c) => c.id == cliente.id);
-    listaClientes.splice(indice, 1, cliente);
+
+    (removerCliente) 
+    ? listaClientes.splice(indice, 1, )
+    : listaClientes.splice(indice, 1, cliente);
+
     popularTabela(listaClientes);
+}
+
+function excluirClienteBackEnd(cliente) {
+
+    fetch(`${URL}/${cliente.id}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'token'
+        },
+    })
+        .then(response => response.json())
+        .then(() => {
+            atualizarClienteNaLista(cliente, true);
+            modalCliente.hide();
+        })
+        .catch(error => {
+            console.log(error)
+        })
 }
 
 obterClientes();
