@@ -1,6 +1,6 @@
 const URL = 'http://localhost:3400/clientes';
-
 let modoEdicao = false;
+
 let btnAdicionar = document.getElementById('btn-adicionar');
 let tabelaCliente = document.querySelector('table>tbody');//observar essa variável
 let modalCliente = new bootstrap.Modal(document.getElementById('modal-cliente'), {});
@@ -26,14 +26,16 @@ function obterClientes() {
 };
 
 //função para editar clientes
-function editarClientes(id) {
+function editarCliente(id) {
     modoEdicao = true;
     tituloModal.textContent = 'Editar Cliente';
     modalCliente.show();
+    alert('Aqui vou editar o cliente ' + id);
 }
 
 function excluirCliente(id) {
     alert('Aqui vou exclir o cliente ' + id);
+    modalCliente.show();
 }
 
 function criarLinhaNaTabela(cliente) {
