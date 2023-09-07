@@ -19,26 +19,32 @@
   <!--Navbar-->
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="javascript:void(0)">Client's CRUD</a>
+      <a class="navbar-brand" href="javascript:void(0)">Client's<br> CRUD</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="mynavbar">
         <ul class="navbar-nav me-auto">
+
           <li class="nav-item">
             <a class="nav-link" href="javascript:void(0)">Usuário</a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link" href="javascript:void(0)">Configurações</a>
           </li>
+
           <li class="nav-item" onclick="sairSistema()">
             <a class="nav-link" href="#">Sair</a>
           </li>
         </ul>
+
         <form class="d-flex">
           <input class="form-control me-2" type="text" placeholder="">
           <button id="btn-pesquisar" class="btn btn-primary" type="button">Pesquisar</button>
         </form>
+
       </div>
     </div>
   </nav>
@@ -112,24 +118,30 @@
               </div>
 
               <div class="row">
+
                 <div class="col-sm-4">
-                  <label for="email" class="form-label">E-mail</label>
-                  <input type="text" class="form-control" id="email">
+                  <label for="cpf" class="form-label">CPF</label>
+                  <input type="text" class="form-control" id="cpf">
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
+                  <label for="dataCadastro" class="form-label">Data de Cadastro</label>
+                  <input disabled type="date" class="form-control" id="dataCadastro">
+                </div>
+
+                <div class="col-sm-4">
                   <label for="telefone" class="form-label">Telefone</label>
                   <input type="text" class="form-control" id="telefone">
                 </div>
 
-                <div class="col-sm-3">
-                  <label for="cpf" class="form-label">CPF</label>
-                  <input type="text" class="form-control" id="cpf">
-                </div>
-                <div class="col-sm-3">
-                  <label for="dataCadastro" class="form-label">Data de Cadastro</label>
-                  <input disabled type="date" class="form-control" id="dataCadastro">
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <label for="email" class="form-label">E-mail</label>
+                  <input type="text" class="form-control" id="email">
                 </div>
               </div>
+
             </div>
 
             <!-- Modal footer -->
