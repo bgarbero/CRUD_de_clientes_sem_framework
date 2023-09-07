@@ -85,8 +85,15 @@ label {
     display: flex;
 }
 
-/*image {
-max-width: 200px;
-max-height: 200px;
-display: flexbox;
+#img-login {
+width: 60vw;
+height: 100vh;
+}
+
+#loading{
+    background-color: #2d3250;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
 }

@@ -49,7 +49,7 @@ function autenticar(email, senha) {
                 salvarToken(response.token);
                 salvarUsuario(response.usuario);
 
-                //aqui vou esconder a tela de login e carregar o loading
+                // aqui vou esconder a tela de login e carregar o loading
                 mostrarLoading();
                 setTimeout(() => {
                     window.open('crud.html', '_self');
@@ -65,4 +65,7 @@ function mostrarLoading(){
 
     const divBoxLogin = document.querySelector("div.caixa-login")
     divBoxLogin.style.display = 'none';
+
+    const img = document.querySelector('#img-login');
+    img.style.display = 'none';
 }
