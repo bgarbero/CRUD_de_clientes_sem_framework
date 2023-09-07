@@ -50,3 +50,12 @@ body{
     background-color: #fdc094;
     color: #696969;
 }
+
+#exit:hover{
+    cursor: pointer;
+}
+
+#exit{
+    color: #363636;
+    padding-right: -1400px;
+}
