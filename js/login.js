@@ -45,7 +45,11 @@ function autenticar(email, senha) {
                 alert(response.mensagem);
                 return;
             } else {
-                alert('Usuário autenticado com sucesso!');
+                Swal.fire(
+                    'Bem-vindo!',
+                    'Usuário autenticado!',
+                    'success'
+                    )
                 salvarToken(response.token);
                 salvarUsuario(response.usuario);
 
@@ -53,7 +57,7 @@ function autenticar(email, senha) {
                 mostrarLoading();
                 setTimeout(() => {
                     window.open('crud.html', '_self');
-                }, 3000)
+                }, 5000)
             }
         })
 }
