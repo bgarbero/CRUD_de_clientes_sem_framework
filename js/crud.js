@@ -34,7 +34,11 @@ btnSalvar.addEventListener('click', () => {
 
     //se os campos obrigatórios foram preenchidos
     if (!cliente.nome || !cliente.telefone) {
-        alert('Nome e telefone são obrigatórios!');
+        Swal.fire({
+            icon: 'error',
+            //title: 'Oops...',
+            text: 'O campo de nome e telefone são obrigatórios',
+          });
         return;
     }
 
@@ -118,9 +122,47 @@ function limparModalCliente() {
 function excluirCliente(id) {
     let cliente = listaClientes.find(c => c.id == id);
 
-    if (confirm(`Deseja realmente excluir o cliente ${cliente.nome}?`)){
-        excluirClienteBackEnd(cliente);
-    }
+    //alert de exclusão de cliente
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: 'Confirme a operação!',
+        text: `Você deseja mesmo excluir o cliente ${cliente.nome}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Excluído!',
+            '',
+            'success'
+          )
+          excluirClienteBackEnd(cliente);
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado!',
+            '',
+            'error'
+          )
+        }
+      })
+    
+
+    // if (confirm(`Deseja realmente excluir o cliente ${cliente.nome}?`)){
+    //     excluirClienteBackEnd(cliente);
+    // }
 
 }
 
