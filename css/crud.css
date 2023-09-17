@@ -57,5 +57,8 @@ body{
 
 #exit{
     color: #363636;
-    padding-right: -1400px;
+    /* padding-right: -1400px; */
+    /* float: right; */
+    position: relative;
+    flex:auto
 }
